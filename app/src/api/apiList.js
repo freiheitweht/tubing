@@ -69,5 +69,10 @@ let opt = {
         method:"POST",
         url: baseUrl + '/instagram/remove/blacklist'
     },
+    insertLittleInstagramAccount:{
+        method:"POST",
+        url: baseUrl + '/instagram/account/insert/little'
+    },
+   
 } 
 export default opt;

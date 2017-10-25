@@ -68,25 +68,32 @@ export default {
       mediaStatus: "",
       list: [],
       // 生肉：rawMeat;翻译中：translating;审核中：reviewing;熟肉：cookedMeat; 被拉黑：forbidden;审核未通过：reviewFail
-      mediaStatusotions: [{
-        value: "rawMeat",
-        label: "生肉"
-      }, {
-        value: "translating",
-        label: "翻译中"
-      }, {
-        value: "reviewing",
-        label: "审核中"
-      }, {
-        value: "cookedMeat",
-        label: "熟肉"
-      }, {
-        value: "forbidden",
-        label: "被拉黑"
-      }, {
-        value: "reviewFail",
-        label: "审核未通过"
-      }],
+      mediaStatusotions: [
+        {
+          value: "rawMeat",
+          label: "生肉"
+        },
+        {
+          value: "translating",
+          label: "翻译中"
+        },
+        {
+          value: "reviewing",
+          label: "审核中"
+        },
+        {
+          value: "cookedMeat",
+          label: "熟肉"
+        },
+        {
+          value: "forbidden",
+          label: "被拉黑"
+        },
+        {
+          value: "reviewFail",
+          label: "审核未通过"
+        }
+      ],
       pageInfo: {
         total: 0,
         page: 1,
@@ -110,7 +117,6 @@ export default {
           size: this.pageInfo.size
         })
         .then(e => {
-
           if (e.data.success) {
             let data = e.data.data;
             this.list = data.content;
@@ -125,58 +131,89 @@ export default {
       this.queryList();
     },
     topMedia(row) {
-      api.topMedia({
-        mediaId: row.id
-      }).then(e => {
-        if (e.data.success) {
-          this.$message.success("置顶成功");
-          this.queryList();
-        } else {
-          this.$message.error("操作失败");
-        }
-      })
-    },
-    cancelMedia(row) {
-      api.cancelMedia({
-        mediaId: row.id
-      }).then(e => {
-        if (e.data.success) {
-          this.$message.success("取消成功");
-          this.queryList();
-        } else {
-          this.$message.error("操作失败");
-        }
-      })
-    },
-    removeBtnClick(row) {
-      this.$confirm('删除操作, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        api.deleteMedia({
+      api
+        .topMedia({
           mediaId: row.id
-        }).then(e => {
+        })
+        .then(e => {
           if (e.data.success) {
-            this.$message.success("删除成功");
+            this.$message.success("置顶成功");
             this.queryList();
           } else {
             this.$message.error("操作失败");
           }
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
         });
-      });
+    },
+    cancelMedia(row) {
+      api
+        .cancelMedia({
+          mediaId: row.id
+        })
+        .then(e => {
+          if (e.data.success) {
+            this.$message.success("取消成功");
+            this.queryList();
+          } else {
+            this.$message.error("操作失败");
+          }
+        });
+    },
+    removeBtnClick(row) {
+      this.$confirm("删除操作, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          api
+            .deleteMedia({
+              mediaId: row.id
+            })
+            .then(e => {
+              if (e.data.success) {
+                this.$message.success("删除成功");
+                this.queryList();
+              } else {
+                this.$message.error("操作失败");
+              }
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
 
+    beBlank(row) {
+      api
+        .addBlackList({
+          mediaId: row.id
+        })
+        .then(e => {
+          if (e.data.success) {
+            this.$message.success("加入成功");
+            this.queryList();
+          } else {
+            this.$message.error("操作失败");
+          }
+        });
     },
-    notBlank(row){
-      this.$message.error("API 文档中没有找到对应的接口")
-    },
-    beBlank(row){
-      this.$message.error("API 文档中没有找到对应的接口")
+    notBlank(row) {
+      console.log(row);
+      api
+        .cancelBlackList({
+          mediaId: row.id
+        })
+        .then(e => {
+          if (e.data.success) {
+            this.$message.success("解除成功");
+            this.queryList();
+          } else {
+            this.$message.error("操作失败");
+          }
+        });
     }
   }
 };
