@@ -22,9 +22,12 @@
     </el-row>
     <el-table :data="list" style="width: 100%">
         <el-table-column prop="groupName" label="兴趣组名称">
+            <template scope="scope">
+                <div @click="()=>editInterestGroup(scope.row)">{{scope.row.groupName}}</div>
+            </template>
+            <!-- editInterestGroup -->
         </el-table-column>
-        <el-table-column prop="description" label="兴趣组简介">
-        </el-table-column>
+      
         <el-table-column prop="memberCount" label="兴趣点数量">
         </el-table-column>
         <el-table-column prop="fansCount" label="关注数">
@@ -57,7 +60,7 @@ export default {
             pageInfo: {
                 total: 0,
                 page: 1,
-                size: 10
+                size: 50
             }
         }
     },
@@ -74,7 +77,7 @@ export default {
                 if (e.data.success) {
                     let data = e.data.data;
                     this.list = data.content;
-                    this.pageInfo.total = data.totalPages;
+                    this.pageInfo.total = data.totalElements;
                 } else {
                     this.$message.error("查询失败");
                 }
@@ -102,6 +105,9 @@ export default {
         },
         addInterstGroup(){
             this.$router.push({name:"AddInterstGroup"})
+        },
+        editInterestGroup(row){
+             this.$router.push({name:"editInterestGroup",query:{id:row.id}})
         }
         
     }

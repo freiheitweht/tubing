@@ -73,6 +73,25 @@ let opt = {
         method:"POST",
         url: baseUrl + '/instagram/account/insert/little'
     },
+    detailInterestGroup:{
+        method:"GET",
+        url: baseUrl + '/interest/group/detail'
+    },
+    // /interest/group/info/update
+    updateInterestGroupInfo:{
+        method:"POST",
+        url: baseUrl + '/interest/group/info/update'
+    },
+    getActionAvatarUrl:{
+        method:"FILE",
+        url: baseUrl + '/interest/group/avatar/update'
+    },
+    removeAccount:{
+        method:"POST",
+        url: baseUrl + '/instagram/group/account/remove'
+    }
+    
+    // /interest/group/detail
    
 } 
 export default opt;

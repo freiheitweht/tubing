@@ -7,7 +7,7 @@
       <el-col :span="16">
         <el-form :inline="true" style="padding-left:20px;">
           <el-form-item>
-            <el-input placeholder="源平台账号/兴趣点ID" v-model="accountKey"></el-input>
+            <el-input placeholder="源平台账号" v-model="accountKey"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="queryList">搜索</el-button>
@@ -85,7 +85,7 @@
         pageInfo: {
           total: 0,
           page: 1,
-          size: 10
+          size: 50
         }
       }
     },
@@ -103,7 +103,7 @@
           if (e.data.success) {
             let data = e.data.data;
             this.list = data.content;
-            this.pageInfo.total = data.totalPages;
+            this.pageInfo.total = data.totalElements;
           } else {
             this.$message.error("查询失败");
           }

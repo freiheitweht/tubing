@@ -7,6 +7,7 @@ import SpiderManagement from '@/components/page/SpiderManagement'
 import InterestGroup from '@/components/page/InterestGroup'
 import AddInterstGroup from '@/components/page/addInterestGroup'
 import AddSpiderAccount from '@/components/page/addSpiderAccount'
+import EditInterestGroup from '@/components/page/editInterestGroup' 
 Vue.use(Router)
 
 export default new Router({
@@ -43,6 +44,10 @@ export default new Router({
       path:'/addSpiderAccount',
       name:'addSpiderAccount',
       component:AddSpiderAccount
+    },{
+      path:'/editInterestGroup',
+      name:'editInterestGroup',
+      component:EditInterestGroup
     }
   ]
 })
