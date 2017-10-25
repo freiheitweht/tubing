@@ -46,17 +46,19 @@
       </el-table-column>
       <el-table-column prop="completeCount" label="已爬多少">
       </el-table-column>
-      <el-table-column prop="produceTime" label="拉黑">
+      <el-table-column prop="produceTime" label="拉黑" width="200">
 <template scope="scope">
   <p>
     <el-button type="text" size="mini" v-if="scope.row.inBlacklist=='N'" @click="()=>addInstagramBlackList(scope.row)">拉黑</el-button>
     <el-button type="text" size="mini" v-if="scope.row.inBlacklist=='Y'" @click="()=>cancelInstagramBlackList(scope.row)">取消</el-button>
+    <el-button type="text" size="mini" @click="setAccountNormal(scope.row)">正常账户</el-button>
+    <el-button type="text" size="mini" @click="setAccountBig(scope.row)">种子账户</el-button>
   </p>
 </template>
       </el-table-column>
   </el-table>
   <div style="margin:20px;" v-if="pageInfo.total">
-    <el-pagination layout="prev, pager, next" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
+    <el-pagination layout="prev, pager, next" @size-change="handleSizeChange" :total="pageInfo.total" @current-change="handelPageChange" style="text-align: right;">
     </el-pagination>
   </div>
 </div>
@@ -125,6 +127,12 @@
             this.$message.error("操作失败")
           }
         })
+      },
+      setAccountNormal(){
+        this.$message.error("API文档里找不到相关的接口")
+      },
+      setAccountBig(){
+        this.$message.error("API文档里找不到相关的接口")
       },
       cancelInstagramBlackList(row){
         api.cancelInstagramBlackList({

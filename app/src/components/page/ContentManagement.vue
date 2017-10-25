@@ -17,12 +17,12 @@
     <el-col :span="8" style="text-align:right;">
       <el-form :inline="true" style="padding-right:20px;">
         <el-form-item>
-            <el-select v-model="mediaStatus" placeholder="请选择" @change="mediaStatusChange">
-              <el-option v-for="item in mediaStatusotions" :key="item.value" :label="item.label" :value="item.value" >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
+          <el-select v-model="mediaStatus" placeholder="请选择" @change="mediaStatusChange">
+            <el-option v-for="item in mediaStatusotions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
     </el-col>
   </el-row>
   <el-table :data="list" style="width: 100%">
@@ -43,11 +43,13 @@
     <el-table-column label="操作" width="200">
       <template scope="scope">
           <p>
-            <el-button type="text" size="mini" @click="topMedia(scope.row)">置顶</el-button>
-            <el-button type="text" size="mini" @click="cancelMedia(scope.row)">取消置顶</el-button>
+            <el-button type="text" size="mini" @click="topMedia(scope.row)" v-if="!scope.row.isSticky">置顶</el-button>
+            <el-button type="text" size="mini" @click="cancelMedia(scope.row)" v-if="scope.row.isSticky">取消置顶</el-button>
+             <el-button type="text" size="mini" @click="beBlank(scope.row)" v-if="!scope.row.isBlankList">拉黑</el-button>
+            <el-button type="text" size="mini" @click="notBlank(scope.row)" v-if="scope.row.isBlankList">取消拉黑</el-button>
             <el-button type="text" size="mini" @click="removeBtnClick(scope.row)">删除</el-button>
           </p>
-        </template>
+</template>
     </el-table-column>
   </el-table>
   <div style="margin:20px;" v-if="pageInfo.total">
@@ -96,7 +98,7 @@ export default {
     this.queryList();
   },
   methods: {
-    mediaStatusChange(key){
+    mediaStatusChange(key) {
       this.queryList();
     },
     queryList() {
@@ -108,7 +110,7 @@ export default {
           size: this.pageInfo.size
         })
         .then(e => {
-          
+
           if (e.data.success) {
             let data = e.data.data;
             this.list = data.content;
@@ -122,41 +124,59 @@ export default {
       this.pageInfo.page = num;
       this.queryList();
     },
-    topMedia(row){
+    topMedia(row) {
       api.topMedia({
-        mediaId:row.id
-      }).then(e=>{
-        if (e.data.success) {  
-            this.$message.success("置顶成功");
-            this.queryList();
-          } else {
-            this.$message.error("操作失败");
-          }
+        mediaId: row.id
+      }).then(e => {
+        if (e.data.success) {
+          this.$message.success("置顶成功");
+          this.queryList();
+        } else {
+          this.$message.error("操作失败");
+        }
       })
     },
-    cancelMedia(row){
+    cancelMedia(row) {
       api.cancelMedia({
-        mediaId:row.id
-      }).then(e=>{
-        if (e.data.success) {  
-            this.$message.success("取消成功");
-            this.queryList();
-          } else {
-            this.$message.error("操作失败");
-          }
+        mediaId: row.id
+      }).then(e => {
+        if (e.data.success) {
+          this.$message.success("取消成功");
+          this.queryList();
+        } else {
+          this.$message.error("操作失败");
+        }
       })
     },
-    removeBtnClick(row){
-      api.deleteMedia({
-        mediaId:row.id
-      }).then(e=>{
-        if (e.data.success) {  
+    removeBtnClick(row) {
+      this.$confirm('删除操作, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        api.deleteMedia({
+          mediaId: row.id
+        }).then(e => {
+          if (e.data.success) {
             this.$message.success("删除成功");
             this.queryList();
           } else {
             this.$message.error("操作失败");
           }
-      })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+
+    },
+    notBlank(row){
+      this.$message.error("API 文档中没有找到对应的接口")
+    },
+    beBlank(row){
+      this.$message.error("API 文档中没有找到对应的接口")
     }
   }
 };

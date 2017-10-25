@@ -1,7 +1,7 @@
 let baseUrl = "http://115.28.153.35:9089/heimdall";
 console.log("环境变量:"+process.env.NODE_ENV);
 if(process.env.NODE_ENV=== "development"){
-    baseUrl = "http://192.168.31.95:8088/heimdall";
+    // baseUrl = "http://192.168.31.95:8088/heimdall";
 }
 let opt = {
     //获取内容管理列表
