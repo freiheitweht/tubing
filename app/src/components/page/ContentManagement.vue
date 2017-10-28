@@ -78,8 +78,7 @@
     <el-table-column prop="produceTime" label="发布时间" width="200">
     </el-table-column>
     <el-table-column label="操作" width="200" fixed="right">
-<template slot-scope="scope" >
-
+<template slot-scope="scope">
   <p>
     <el-button type="text" size="mini" @click="topMedia(scope.row)" v-if="!scope.row.isSticky">置顶</el-button>
     <el-button type="text" size="mini" @click="cancelMedia(scope.row)" v-if="scope.row.isSticky">取消置顶</el-button>
@@ -93,7 +92,7 @@
 
   </div>
   <div style="margin:20px;" v-if="pageInfo.total">
-    <el-pagination layout="prev, pager, next" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
+    <el-pagination layout="sizes,prev, pager, next,jumper" @size-change="handleSizeChange" :page-sizes="[10, 20, 30, 40,50]" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
     </el-pagination>
   </div>
 </div>
@@ -168,6 +167,11 @@
       handelPageChange(num) {
         this.pageInfo.page = num;
         this.queryList();
+      },
+      handleSizeChange(num){
+         this.pageInfo.size = num;
+         this.pageInfo.page = 1;
+         this.queryList();
       },
       topMedia(row) {
         api

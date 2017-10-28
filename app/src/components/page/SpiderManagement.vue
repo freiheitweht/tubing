@@ -28,6 +28,8 @@
         </el-form>
       </el-col>
     </el-row>
+    <div style="padding:20px;">
+
     <el-table :data="list" style="width: 100%">
       <el-table-column prop="id" label="兴趣点id" width="180">
       </el-table-column>
@@ -59,14 +61,15 @@
   <p>
     <el-button type="text" size="mini" v-if="scope.row.inBlacklist=='N'" @click="()=>addInstagramBlackList(scope.row)">拉黑</el-button>
     <el-button type="text" size="mini" v-if="scope.row.inBlacklist=='Y'" @click="()=>cancelInstagramBlackList(scope.row)">取消</el-button>
-    <!-- <el-button type="text" size="mini" @click="setAccountNormal(scope.row)">正常账户</el-button>
-    <el-button type="text" size="mini" @click="setAccountBig(scope.row)">种子账户</el-button> -->
   </p>
 </template>
       </el-table-column>
   </el-table>
+
+      
+    </div>
   <div style="margin:20px;" v-if="pageInfo.total">
-    <el-pagination layout="prev, pager, next" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
+    <el-pagination layout="sizes,prev, pager, next,jumper" @size-change="handleSizeChange" :page-sizes="[10, 20, 30, 40,50]" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
     </el-pagination>
   </div>
   <el-dialog title="填写备注" :visible.sync="dialog">
@@ -117,6 +120,11 @@
       this.queryList();
     },
     methods: {
+      handleSizeChange(num){
+         this.pageInfo.size = num;
+         this.pageInfo.page = 1;
+         this.queryList();
+      },
       queryList() {
         api.accountList({
           key: this.accountKey,

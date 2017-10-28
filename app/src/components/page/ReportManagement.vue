@@ -90,7 +90,7 @@
     </el-table-column>
   </el-table>
   <div style="margin:20px;" v-if="pageInfo.total">
-    <el-pagination layout="prev, pager, next" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
+    <el-pagination layout="sizes,prev, pager, next,jumper" @size-change="handleSizeChange" :page-sizes="[10, 20, 30, 40,50]" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
     </el-pagination>
   </div>
 </div>
@@ -135,6 +135,11 @@ export default {
     this.queryList();
   },
   methods: {
+    handleSizeChange(num){
+         this.pageInfo.size = num;
+         this.pageInfo.page = 1;
+         this.queryList();
+      },
     mediaStatusChange(key) {
       this.queryList();
     },
