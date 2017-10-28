@@ -58,7 +58,7 @@
       </el-table-column>
   </el-table>
   <div style="margin:20px;" v-if="pageInfo.total">
-    <el-pagination layout="prev, pager, next" :total="pageInfo.total" @current-change="handelPageChange" style="text-align: right;">
+    <el-pagination layout="prev, pager, next" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
     </el-pagination>
   </div>
 </div>

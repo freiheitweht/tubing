@@ -47,7 +47,7 @@
         </el-table>
     </div>
     <div style="margin:20px;" v-if="pageInfo.total">
-        <el-pagination layout="prev, pager, next" :total="pageInfo.total" @current-change="handelPageChange" style="text-align: right;">
+        <el-pagination layout="prev, pager, next" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
         </el-pagination>
     </div>
     </el-tab-pane>
@@ -113,6 +113,7 @@ export default {
           .then(e => {
             if (e.data.success && e.data.data) {
               this.$message.success("创建成功");
+              this.queryList();
             } else {
               this.$message.error("创建失败");
             }
@@ -216,6 +217,7 @@ export default {
             .then(e => {
               if (e.data.success) {
                 this.$message.success("删除成功");
+                this.queryList();
               } else {
                 this.$message.error("删除失败");
               }
