@@ -81,6 +81,12 @@
         }, {
           value: "blacklist",
           label: "黑名单"
+        },{
+          value:"seed",
+          label:"种子用户"
+        },{
+          value:"ordinary",
+          label:"普通用户"
         }],
         pageInfo: {
           total: 0,

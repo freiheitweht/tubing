@@ -89,6 +89,11 @@ let opt = {
     removeAccount:{
         method:"POST",
         url: baseUrl + '/instagram/group/account/remove'
+    },
+    //少量增加兴趣组
+    addInterestMembers:{
+        method:"POST",
+        url: baseUrl + '/interest/group/members/join'
     }
     
     // /interest/group/detail

@@ -30,9 +30,26 @@
     </el-table-column>
     <el-table-column prop="account.username" label="源平台账号" width="180">
     </el-table-column>
-    <el-table-column prop="caption" label="源平台内容">
+    <el-table-column label="图片" width="180">
+      <template scope="scope">
+        <div class="img-box">
+          <img :src="scope.row.images && scope.row.images[0].url" alt="" width="100%" height="100%">
+        </div>
+      </template>
     </el-table-column>
-    <el-table-column prop="captionCooked" label="翻译内容">
+    <el-table-column label="源平台内容">
+      <template scope="scope"> 
+        <div class="text-overflow">
+          {{scope.row.caption}}
+        </div>
+      </template>
+    </el-table-column>
+    <el-table-column label="翻译内容">
+      <template scope="scope">
+        <div class="text-overflow">
+          {{scope.row.captionCooked}}
+        </div>
+      </template>
     </el-table-column>
     <el-table-column prop="mediaStatus" label="内容状态">
     </el-table-column>
@@ -65,7 +82,7 @@ export default {
   data() {
     return {
       accountKey: "",
-      mediaStatus: "",
+      mediaStatus: "cookedMeat",
       list: [],
       // 生肉：rawMeat;翻译中：translating;审核中：reviewing;熟肉：cookedMeat; 被拉黑：forbidden;审核未通过：reviewFail
       mediaStatusotions: [
@@ -220,5 +237,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+  .img-box{
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+  }
+  .text-overflow{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 </style>

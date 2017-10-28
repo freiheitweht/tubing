@@ -23,11 +23,9 @@
     <el-table :data="list" style="width: 100%">
         <el-table-column prop="groupName" label="兴趣组名称">
             <template scope="scope">
-                <div @click="()=>editInterestGroup(scope.row)">{{scope.row.groupName}}</div>
+                <a href="javascript:void(0);" @click="()=>editInterestGroup(scope.row)">{{scope.row.groupName}}</a>
             </template>
-            <!-- editInterestGroup -->
         </el-table-column>
-      
         <el-table-column prop="memberCount" label="兴趣点数量">
         </el-table-column>
         <el-table-column prop="fansCount" label="关注数">
@@ -38,10 +36,8 @@
                     <el-button type="text" size="mini" v-if="scope.row.groupStatus=='1'" @click="()=>changeGroupStatus(scope.row)">上架</el-button>
                     <el-button type="text" size="mini" v-if="scope.row.groupStatus=='0'" @click="()=>changeGroupStatus(scope.row)">下架</el-button>
                 </p>
-            </template>
-                    
-      </el-table-column>
-     
+            </template>   
+        </el-table-column>
   </el-table>
   <div style="margin:20px;" v-if="pageInfo.total">
     <el-pagination layout="prev, pager, next" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">

@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <div class="header">
-      <img src="./assets/logo.png" alt="">
+      <img src="http://res.xiongdihuzhu.com/res/api/web-manager/logo.svg" alt="">
+      <span>油管</span>
     </div>
     <el-row class="section">
       <el-col :span="8" class="nav">
-        <el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" @select="handleSelect" theme="dark">
+        <el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" @select="handleSelect" >
             <el-menu-item index="1"><i class="el-icon-menu"></i>内容管理</el-menu-item>
             <el-menu-item index="2"><i class="el-icon-information"></i>举报管理</el-menu-item>
             <el-menu-item index="3"><i class="el-icon-setting"></i>爬虫审核管理</el-menu-item>
@@ -77,11 +78,24 @@ html {
     height: 70px;
     padding-top: 10px;
     padding-left: 40px;
-    background: #324057;
+    background: #FC2422;
+    vertical-align: middle;
     img {
       height: 60px;
       // margin-top: 10px;
-      display: block;
+      display: inline-block
+    }
+    span{
+        color: #fff;
+        font-size: 30px;
+        font-weight: 400;
+        display: inline-block;
+        line-height: 60px;
+        vertical-align: top;
+        height: 60px;
+        letter-spacing: 10px;
+        text-shadow: 0 2px 4px #CC0000;
+        margin-left: 20px;
     }
   }
   .section {
@@ -95,7 +109,7 @@ html {
     .nav {
       width: 200px;
       height: 100%;
-      background: #324057;
+      background:  rgb(238, 241, 246);
       overflow-y: auto;
     }
     .content {
