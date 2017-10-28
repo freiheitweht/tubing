@@ -6,6 +6,8 @@ import router from './router'
 import ElementUI from 'element-ui'
 //自定义主题红色
 import '../theme/index.css'
+// import VuePreview from 'vue-preview'
+// Vue.use(VuePreview)
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false

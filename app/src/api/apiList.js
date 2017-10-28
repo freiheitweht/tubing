@@ -94,9 +94,11 @@ let opt = {
     addInterestMembers:{
         method:"POST",
         url: baseUrl + '/interest/group/members/join'
+    },
+    addRemarkName:{
+        method:"POST",
+        url: baseUrl + '/instagram/account/add/remarkName'
     }
-    
-    // /interest/group/detail
    
 } 
 export default opt;

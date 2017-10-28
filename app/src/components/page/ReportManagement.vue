@@ -26,29 +26,48 @@
     </el-col>
   </el-row>
   <el-table :data="list" style="width: 100%">
-    <el-table-column prop="id" label="内容id" width="180">
+    <el-table-column prop="id" label="内容id" width="100" fixed>
     </el-table-column>
     <el-table-column prop="account.username" label="源平台账号" width="180">
     </el-table-column>
-    <el-table-column label="图片" width="180">
-      <template scope="scope">
-        <div class="img-box">
-          <img :src="scope.row.images && scope.row.images[0].url" alt="" width="100%" height="100%">
-        </div>
+     <el-table-column label="图片" width="180">
+        <template slot-scope="scope">
+          <el-popover
+              v-if="scope.row.images"
+              placement="right-start"
+              width="300"
+              trigger="hover">
+              <div>
+                <img :src="scope.row.images &&  scope.row.images[0].url" width="100%;" alt="">
+              </div>
+              <div class="img-box" slot="reference">
+                  <img :src="scope.row.images && scope.row.images[0].url" alt="" width="100%" height="100%">
+              </div>  
+            </el-popover>
+        </template>
+    </el-table-column>
+    <el-table-column label="源平台内容" width="280">
+<template slot-scope="scope">
+  <el-popover placement="top-start" width="400" trigger="hover">
+    <div>
+      {{scope.row.caption}}
+    </div>
+    <div class="text-overflow" slot="reference">
+      {{scope.row.caption}}
+    </div>
+  </el-popover>
 </template>
     </el-table-column>
-    <el-table-column label="源平台内容">
-<template scope="scope">
-<div class="text-overflow">
-  {{scope.row.caption}}
-</div>
-</template>
-    </el-table-column>
-    <el-table-column label="翻译内容">
-<template scope="scope">
-<div class="text-overflow">
-  {{scope.row.captionCooked}}
-</div>
+    <el-table-column label="翻译内容" width="280">
+<template slot-scope="scope">
+  <el-popover placement="top-start" width="400" trigger="hover">
+    <div>
+      {{scope.row.captionCooked}}
+    </div>
+    <div class="text-overflow" slot="reference">
+      {{scope.row.captionCooked}}
+    </div>
+  </el-popover>
 </template>
     </el-table-column>
       <el-table-column prop="mediaStatus" label="内容状态">
@@ -61,8 +80,8 @@
       </el-table-column>
       <el-table-column prop="reporter" label="举报人">
       </el-table-column>
-      <el-table-column label="操作" width="200">
-<template scope="scope">
+      <el-table-column label="操作" width="200" fixed="right">
+<template slot-scope="scope">
 <p>
   <el-button type="text" size="mini" @click="()=>cancelBlackList(scope.row)" v-if="scope.row.isInBlacklist">解除</el-button>
   <el-button type="text" size="mini" @click="()=>addBlackList(scope.row)" v-if="!scope.row.isInBlacklist">加入</el-button>

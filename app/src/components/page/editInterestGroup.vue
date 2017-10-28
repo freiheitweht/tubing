@@ -40,7 +40,7 @@
           <el-table-column prop="username" label="源平台账号">
           </el-table-column>
           <el-table-column label="操作" width="180">
-            <template scope="scope">
+            <template slot-scope="scope">
                     <el-button type="text" @click="()=>remove(scope.row)">删除</el-button>
 </template>
             </el-table-column>

@@ -22,7 +22,7 @@
     </el-row>
     <el-table :data="list" style="width: 100%">
         <el-table-column prop="groupName" label="兴趣组名称">
-            <template scope="scope">
+            <template slot-scope="scope">
                 <a href="javascript:void(0);" @click="()=>editInterestGroup(scope.row)">{{scope.row.groupName}}</a>
             </template>
         </el-table-column>
@@ -31,7 +31,7 @@
         <el-table-column prop="fansCount" label="关注数">
         </el-table-column>
         <el-table-column prop="inBlacklist" label="上/下架" width="100">
-            <template scope="scope">
+            <template slot-scope="scope">
                 <p>
                     <el-button type="text" size="mini" v-if="scope.row.groupStatus=='1'" @click="()=>changeGroupStatus(scope.row)">上架</el-button>
                     <el-button type="text" size="mini" v-if="scope.row.groupStatus=='0'" @click="()=>changeGroupStatus(scope.row)">下架</el-button>
