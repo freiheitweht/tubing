@@ -59,8 +59,9 @@
       <el-table-column prop="produceTime" label="拉黑" width="200">
 <template slot-scope="scope">
   <p>
-    <el-button type="text" size="mini" v-if="scope.row.inBlacklist=='N'" @click="()=>addInstagramBlackList(scope.row)">拉黑</el-button>
-    <el-button type="text" size="mini" v-if="scope.row.inBlacklist=='Y'" @click="()=>cancelInstagramBlackList(scope.row)">取消</el-button>
+    <el-button type="text" size="mini" v-if="scope.row.inBlacklist=='N' && scope.row.accountType!==1" @click="()=>addInstagramBlackList(scope.row)">拉黑</el-button>
+    <el-button type="text" size="mini" v-if="scope.row.inBlacklist=='Y' && scope.row.accountType!==1" @click="()=>cancelInstagramBlackList(scope.row)">取消</el-button>
+    <el-button type="text" size="mini" v-if="scope.row.accountType==1" @click="()=>removeFeed(scope.row)">移除</el-button>
   </p>
 </template>
       </el-table-column>
@@ -69,7 +70,7 @@
       
     </div>
   <div style="margin:20px;" v-if="pageInfo.total">
-    <el-pagination layout="sizes,prev, pager, next,jumper" @size-change="handleSizeChange" :page-sizes="[10, 20, 30, 40,50]" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
+    <el-pagination layout="sizes,prev, pager, next,jumper" :current-page="pageInfo.page" @size-change="handleSizeChange" :page-sizes="[10, 20, 30, 40,50]" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
     </el-pagination>
   </div>
   <el-dialog title="填写备注" :visible.sync="dialog">
@@ -120,6 +121,18 @@
       this.queryList();
     },
     methods: {
+      removeFeed(row){
+        api.removeSeed({
+          accountId:row.id
+        }).then(e=>{
+          if(e.data.success){
+            this.$message.success("移除成功");
+            this.queryList();
+          }else{
+             this.$message.error("移除失败")
+          }
+        })
+      },
       handleSizeChange(num){
          this.pageInfo.size = num;
          this.pageInfo.page = 1;

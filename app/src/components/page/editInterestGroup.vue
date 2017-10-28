@@ -47,7 +47,7 @@
         </el-table>
     </div>
     <div style="margin:20px;" v-if="pageInfo.total">
-        <el-pagination layout="sizes,prev, pager, next,jumper" @size-change="handleSizeChange" :page-sizes="[10, 20, 30, 40,50]" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
+        <el-pagination layout="sizes,prev, pager, next,jumper" :current-page="pageInfo.page" @size-change="handleSizeChange" :page-sizes="[10, 20, 30, 40,50]" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
         </el-pagination>
     </div>
     </el-tab-pane>

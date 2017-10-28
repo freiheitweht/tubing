@@ -98,7 +98,12 @@ let opt = {
     addRemarkName:{
         method:"POST",
         url: baseUrl + '/instagram/account/add/remarkName'
+    },
+    removeSeed:{
+        method:"POST",
+        url: baseUrl + '/instagram/account/remove/seed'
     }
+    // /instagram/account/remove/seed
    
 } 
 export default opt;
