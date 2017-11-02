@@ -25,13 +25,15 @@
       </el-form>
     </el-col>
   </el-row>
-  <el-table :data="list" style="width: 100%">
-    <el-table-column prop="id" label="内容id" width="100" fixed>
+  <div style="padding:20px;">
+
+  <el-table :data="list" style="width: 100%;">
+    <el-table-column prop="id" label="内容id" width="90">
     </el-table-column>
-    <el-table-column prop="account.username" label="源平台账号" width="180">
+    <el-table-column prop="account.username" label="源平台账号">
     </el-table-column>
      <el-table-column label="图片" width="180">
-        <template slot-scope="scope">
+        <template slot-scope="scope" >
           <el-popover
               v-if="scope.row.images"
               placement="right-start"
@@ -44,9 +46,15 @@
                   <img :src="scope.row.images && scope.row.images[0].url" alt="" width="100%" height="100%">
               </div>  
             </el-popover>
+            <div class="video-box" slot="reference" v-if="scope.row.videos">
+                <video :src="scope.row.videos[0].standardResolution.videoUrl" width="100%" controls="controls">
+                  your browser does not support the video tag
+                </video>
+                  <!-- <img :src="scope.row.videos[0].standardResolution.videoConver.imageUrl" alt="" width="100%" height="100%"> -->
+              </div>  
         </template>
     </el-table-column>
-    <el-table-column label="源平台内容" width="280">
+    <el-table-column label="源平台内容" width="150">
 <template slot-scope="scope">
   <el-popover placement="top-start" width="400" trigger="hover">
     <div>
@@ -58,7 +66,7 @@
   </el-popover>
 </template>
     </el-table-column>
-    <el-table-column label="翻译内容" width="280">
+    <el-table-column label="翻译内容" width="150">
 <template slot-scope="scope">
   <el-popover placement="top-start" width="400" trigger="hover">
     <div>
@@ -74,13 +82,13 @@
       </el-table-column>
       <el-table-column prop="from" label="来源平台">
       </el-table-column>
-      <el-table-column prop="produceTime" label="发布时间">
+      <el-table-column prop="produceTime" label="发布时间" width="180">
       </el-table-column>
       <el-table-column prop="tipOffCount" label="举报人数">
       </el-table-column>
       <el-table-column prop="reporter" label="举报人">
       </el-table-column>
-      <el-table-column label="操作" width="200" fixed="right">
+      <el-table-column label="操作">
 <template slot-scope="scope">
 <p>
   <el-button type="text" size="mini" @click="()=>cancelBlackList(scope.row)" v-if="scope.row.isInBlacklist">解除</el-button>
@@ -89,6 +97,7 @@
 </template>
     </el-table-column>
   </el-table>
+  </div>
   <div style="margin:20px;" v-if="pageInfo.total">
     <el-pagination layout="sizes,prev, pager, next,jumper" :current-page="pageInfo.page" @size-change="handleSizeChange" :page-sizes="[10, 20, 30, 40,50]" :total="pageInfo.total" :page-size="pageInfo.size" @current-change="handelPageChange" style="text-align: right;">
     </el-pagination>
@@ -195,15 +204,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .img-box{
+  .img-box,.video-box{
     overflow: hidden;
     width: 100px;
     height: 100px;
     margin: 10px;
   }
   .text-overflow{
-    white-space: nowrap;
+    overflow : hidden;
     text-overflow: ellipsis;
-    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 </style>
