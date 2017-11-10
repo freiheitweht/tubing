@@ -154,6 +154,7 @@
       };
     },
     mounted() {
+      this.accountKey = this.$route.query.username || "";
       this.queryList();
     },
     methods: {

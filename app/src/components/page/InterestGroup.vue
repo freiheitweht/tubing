@@ -34,8 +34,8 @@
         <el-table-column prop="inBlacklist" label="上/下架" width="100">
             <template slot-scope="scope">
                 <p>
-                    <el-button type="text" size="mini" v-if="scope.row.groupStatus=='1'" @click="()=>changeGroupStatus(scope.row)">上架</el-button>
-                    <el-button type="text" size="mini" v-if="scope.row.groupStatus=='0'" @click="()=>changeGroupStatus(scope.row)">下架</el-button>
+                    <el-button type="text" size="mini" v-if="scope.row.groupStatus=='1'" @click="()=>changeGroupStatus(scope.row)" style="color:blue;">上架</el-button>
+                    <el-button type="text" size="mini" v-if="scope.row.groupStatus=='0'" @click="()=>changeGroupStatus(scope.row)" >下架</el-button>
                 </p>
             </template>   
         </el-table-column>

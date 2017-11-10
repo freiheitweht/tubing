@@ -38,6 +38,9 @@
         </el-row>
         <el-table :data="list" style="width: 100%">
           <el-table-column prop="username" label="源平台账号">
+            <template slot-scope="scope">
+              <a href="javascript:void(0);" type="text" @click="()=>gotoConetent(scope.row.username)">{{scope.row.username}}</a>
+            </template>
           </el-table-column>
           <el-table-column label="操作" width="180">
             <template slot-scope="scope">
@@ -135,7 +138,9 @@ export default {
         this.$message.error("上传失败");
       }
     },
-
+  gotoConetent(username){
+    this.$router.push({name:"ContentManagement",query:{username}})
+  },
     queryList() {
       api
         .interestAccountList({
